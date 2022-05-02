@@ -31,9 +31,17 @@ public class ShainService {
 		}
 
 		if(!sd.getPassword().equals(sd.getPassword2())) {
+			sd.setMsg("パスワードと確認用パスワードが違っています。");
 			return false;
 		}
 		return true;
 	}
 
+	public void getKengenName(ShainData sd) {
+		kr.getKengenName(sd);
+	}
+
+	public void exeInsert(ShainData sd) {
+		sr.exeInsert(sd);
+	}
 }

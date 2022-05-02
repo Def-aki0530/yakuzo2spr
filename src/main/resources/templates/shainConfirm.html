@@ -15,7 +15,7 @@
 				<tr>
 					<th>社員コード</th>
 					<td>
-						<input type="text" name="shain_code" readonly>
+						<input type="text" name="shain_code" th:value="${sd.shain_code}" readonly>
 					</td>
 					<th>ログインフラグ</th>
 					<td>
@@ -30,7 +30,8 @@
 						<input type="text" name="shain_name" th:value="${sd.shain_name}" readonly>
 					</td>
 					<th>権限</th>
-					<td th:text="${sd.kengen_name}">
+					<td>
+						<span th:text="${sd.kengen_name}"></span>
 						<input type="hidden" name="kengen_code" th:value="${sd.kengen_code}">
 					</td>
 				</tr>
@@ -62,7 +63,7 @@
 				</td>
 				<td colspan="2">
 					<button type="submit">登録</button>
-					<button type="button" onclick="cancel()">キャンセル</button>
+					<button type="button" onclick="returnPage()">キャンセル</button>
 				</td>
 			</tr>
 		</table>

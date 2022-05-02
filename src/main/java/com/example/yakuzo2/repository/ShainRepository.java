@@ -161,6 +161,27 @@ public class ShainRepository {
 
 		return true;
 	}
+
+	//登録処理
+	public void exeInsert(ShainData sd) {
+		String sql ="insert into mst_shain values(?,?,?,?,?,?,?,?,?,now(),?,now(),?)";
+		List<Object> param = new ArrayList();
+
+		param.add(sd.getShain_code());
+		param.add(sd.getShain_name());
+		param.add(sd.getShain_name_kana());
+		param.add(sd.getPassword());
+		param.add(sd.getLogin_flg());
+		param.add(sd.getMail_address());
+		param.add(sd.getKengen_code());
+		param.add("");
+		param.add(sd.getDelete_flg());
+		param.add(sd.getRegist_shain_code());
+		param.add(sd.getRegist_shain_code());
+
+		jt.update(sql,param.toArray());
+
+	}
 }
 
 

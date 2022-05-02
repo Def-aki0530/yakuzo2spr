@@ -47,3 +47,7 @@ function cancel(){
 		location.href = "mst_shain";
 	}
 }
+
+function returnPage(){
+	history.back();
+}
