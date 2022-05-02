@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+html{
+	fontsize: 16px;
+}
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Noto Sans JP';
+}
+
+.login{
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: #f3f3f3;
+}
+
+.heading{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #17171b;
+	padding: 80px 0 60px;
+}
+
+.heading h1{
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.heading h2{
+	font-size: 1.2rem;
+	font-weight: 700;
+	padding: 10px 0 0;
+}
+
+.login-form{
+	width: 640px;
+	height: 420px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: #ffffff;
+	border-radius: 40px;
+	filter: drop-shadow(0px 5px 10px #bebebe);
+}
+
+.login-form-container{
+	padding: 0 0 20px;
+}
+
+.login-form-contents{
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+.login-form-contents label {
+	width: 100px;
+	font-size: 1rem;
+	margin-right: 20px;
+}
+
+.login-form-contents input{
+	width: 360px;
+	height: 60px;
+	background: #f3f3f3;
+	border-radius: 30px;
+	border: none;
+	outline: none;
+	padding: 0 40px;
+}
+
+.login-form-select select{
+	width: 360px;
+	height: 60px;
+	background: #f3f3f3;
+	border-radius: 30px;
+	border: none;
+	outline: none;
+	padding: 0 40px;
+
+	webkit-appearance: none;
+  	appearance: none;
+}
+
+.login-form-select{
+	position: relative;
+}
+
+.login-form-select::after{
+	content: '';
+  	width: 6px;
+  	height: 6px;
+  	border: 0px;
+  	border-bottom: solid 2px #17171b;
+  	border-right: solid 2px #17171b;
+  	-ms-transform: rotate(45deg);
+  	-webkit-transform: rotate(45deg);
+  	transform: rotate(45deg);
+  	position: absolute;
+  	top: 50%;
+  	right: 40px;
+  	margin-top: -4px;
+  	pointer-events: none;
+}
+
+.login-form-button{
+	width: 180px;
+	height: 60px;
+	background: #17171b;
+	border-radius: 30px;
+	border: none;
+	outline: none;
+	color: #ffffff;
+	margin: 20px 0 0;
+}
+
+.login-form-button:hover{
+	background: #52525c;
+}
+
+.login-form-msg{
+	font-size: 0.8rem;
+	color: red;
+}

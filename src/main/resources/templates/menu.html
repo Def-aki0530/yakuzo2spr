@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>在庫管理システム</title>
+<link rel="stylesheet" th:href="@{/css/menu.css}" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<div th:replace="header"></div>
+
+	<div class="menu">
+		<h3>メインメニュー</h3>
+		<div class="menu-container">
+			<div class="menu-contents">
+				<div class="menu-head">業務メニュー</div>
+				<div>
+					<ul th:each="map : ${md.dutiesList}">
+						<li>
+							<a th:href="${map.menu_uri}" th:text="${map.menu_name}"></a>
+						</li>
+					</ul >
+				</div>
+			</div>
+			<div class="menu-contents">
+				<div class="menu-head">在庫管理メニュー</div>
+				<div>
+					<ul th:each="map : ${md.stockList}">
+						<li>
+							<a th:href="${map.menu_uri}" th:text="${map.menu_name}"></a>
+						</li>
+					</ul >
+				</div>
+			</div>
+			<div class="menu-contents">
+				<div class="menu-head">システムメニュー</div>
+				<div>
+					<ul th:each="map : ${md.systemList}">
+						<li>
+							<a th:href="${map.menu_uri}" th:text="${map.menu_name}"></a>
+						</li>
+					</ul >
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
+
+<style>
+th{
+
+}
+</style>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>薬品在庫管理システム</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+<script src="js/jquery.twbsPagination.min.js"></script>
+<script type="text/javascript" src="js/shain.js"></script>
+</head>
+<body>
+	<div th:replace="header"></div>
+	<div style="display: flex; flex-direction: column; align-items: center;">
+		<h3>社員一覧</h3>
+
+		<div>
+			<table>
+				<tr>
+					<th>社員</th>
+					<td>
+						<input type="text" id="shain">
+					</td>
+					<th>ログインフラグ</th>
+					<td>
+						<select id="login_flg">
+							<option value="">--指定なし--</option>
+							<option value="0">ログイン可</option>
+							<option value="1">ログイン不可</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>権限</th>
+					<td>
+						<select id="kengen_code">
+							<option value="">--指定なし--</option>
+							<th:block th:each="map : ${sd.kengen_list}">
+								<option th:value="${map.kengen_code}" th:text="${map.kengen_name}"></option>
+							</th:block>
+						</select>
+					</td>
+					<th>削除フラグ</th>
+					<td>
+						<select id="delete_flg">
+							<option value="">--指定なし--</option>
+							<option value="0">在職社員</option>
+							<option value="1">削除データ</option>
+						</select>
+					</td>
+					<td>
+						<button onclick="kensaku()">検索</button>
+						<a href="shainregist">
+							<button>新規作成</button>
+						</a>
+
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<nav aria-label="Page navigation">
+        	<ul class="pagination" id="pagination"></ul>
+    	</nav>
+
+    	<div id="list"></div>
+	</div>
+</body>
+</html>
+
+<style>
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Noto Sans JP';
+}
+
+h3{
+	font-size: 19.2px;
+	padding: 30px 0;
+}
+
+th{
+	padding: 10px 40px;
+	border: solid 1px #bbb;
+	background: #eee;
+}
+
+td{
+	padding: 10px 40px;
+		border: solid 1px #eee;
+}
+
+.pagination{
+	margin: 30px 0;
+}
+</style>

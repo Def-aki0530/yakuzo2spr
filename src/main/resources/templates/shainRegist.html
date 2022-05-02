@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>薬品在庫管理システム</title>
+<script src="js/shain.js"></script>
+</head>
+<body>
+	<div class="shainregist">
+		<div th:replace="header"></div>
+		<h3 th:text="${sd.title}"></h3>
+		<form th:action="${sd.action}" method="post">
+			<table>
+				<tr>
+					<th>社員コード</th>
+					<td>
+						<input type="text" name="shain_code" required>
+					</td>
+					<th>ログインフラグ</th>
+					<td>
+						<select name="login_flg">
+							<option value="0" th:selected="${sd.login_flg == '0'}">可</option>
+							<option value="1" th:selected="${sd.login_flg == '1'}">不可</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>社員名</th>
+					<td>
+						<input type="text" name="shain_name" th:value="${sd.shain_name}" required>
+					</td>
+					<th>権限</th>
+					<td>
+						<select name="kengen_code">
+							<th:block th:each="map : ${sd.kengen_list}">
+								<option th:value="${map.kengen_code}"
+											th:selected="${map.kengen_code} == ${sd.kengen_code}"
+											th:text="${map.kengen_name}"></option>
+							</th:block>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>社員名（カナ）</th>
+						<td>
+							<input type="text" name="shain_name_kana" th:value="${sd.shain_name_kana}">
+						</td>
+					<th>メールアドレス</th>
+					<td>
+						<input type="email" name="mail_address" th:value="${sd.mail_address}">
+					</td>
+				</tr>
+			<tr>
+				<th>パスワード</th>
+				<td>
+					<input type="password" name="password" th:value="${sd.password}" required>
+				</td>
+				<th>削除フラグ</th>
+				<td>
+					<select name="delete_flg">
+						<option value="0" th:selected="${sd.delete_flg == '0'}">在職社員</option>
+						<option value="1" th:selected="${sd.delete_flg == '1'}">削除データ</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>パスワード（確認用）</th>
+				<td>
+					<input type="password" name="password2" th:value="${sd.password}" required>
+				</td>
+				<td colspan="2">
+					<button type="submit">登録</button>
+					<button type="button" onclick="cancel()">キャンセル</button>
+				</td>
+			</tr>
+		</table>
+		</form>
+
+	</div>
+</body>
+</html>
+
+<style>
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Noto Sans JP';
+}
+
+h3{
+	font-size: 19.2px;
+	padding: 30px 0;
+}
+
+th{
+	padding: 10px 40px;
+	border: solid 1px #bbb;
+	background: #eee;
+}
+
+td{
+	padding: 10px 40px;
+		border: solid 1px #eee;
+}
+
+.shainregist{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+</style>

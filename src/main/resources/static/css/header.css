@@ -1,0 +1,35 @@
+html{
+	fontsize: 16px;
+}
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Noto Sans JP';
+}
+
+.header{
+	width: 100%;
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: #eee;
+	color: #17171b;
+
+}
+
+.header h2{
+	font-size: 1.5rem;
+}
+
+.header-container{
+	display: flex;
+}
+
+.header-contents{
+	display: flex;
+	padding: 10px 20px 0;
+}

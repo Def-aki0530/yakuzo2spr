@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>薬品在庫管理</title>
+<link rel="stylesheet" th:href="@{/css/login.css}" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="login">
+	<div class="heading">
+		<h1>薬品在庫管理システムspring</h1>
+		<h2>ログイン画面</h2>
+	</div>
+
+	<form action="put_login" method="post" class="login-form">
+		<div class="login-form-container">
+			<div class="login-form-contents">
+				<label>社員コード</label>
+				<input type="text" name="shain_code" th:value="${ld.shain_code}" required>
+			</div>
+			<div class="login-form-contents">
+				<label>パスワード</label>
+				<input type="password" name="password" th:value="${ld.password}" required>
+			</div>
+			<div class="login-form-contents">
+				<label>店舗</label>
+				<div class="login-form-select">
+					<select name="tenpo_code">
+						<option value="">--店舗を選択してください--</option>
+						<th:block th:each="map : ${ld.list}">
+							<option th:value="${map.torihikisaki_code}"
+							 th:selected="${map.torihikisaki_code} == ${ld.tenpo_code}" th:text="${map.torihikisaki_name}">
+						</th:block>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<span class="login-form-msg" th:text="${ld.msg}"></span>
+		<button class="login-form-button" type="submit">ログイン</button>
+
+	</form>
+</div>
+</body>
+</html>

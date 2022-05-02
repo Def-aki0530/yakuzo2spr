@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/header.css}" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header class="header">
+	<h2>薬品在庫管理システム</h2>
+	<div class="header-container">
+		<div class="header-contents">
+			<label>ログイン者：</label>
+			<p th:text="${session.login_shain_name}"></p>
+		</div>
+		<div class="header-contents">
+			<label>権限：</label>
+			<p th:text="${session.login_kengen_name}"></p>
+		</div>
+		<div class="header-contents">
+			<label>店舗：</label>
+			<p th:text="${session.login_tenpo_name}"></p>
+		</div>
+		<div class="header-contents">
+			<a href="/menu">メニューへ戻る</a>
+		</div>
+	</div>
+	</header>
+</body>
+</html>

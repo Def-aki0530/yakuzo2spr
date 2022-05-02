@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>薬品在庫管理システム</title>
+<script src="js/shain.js"></script>
+</head>
+<body>
+	<div class="shainregist">
+		<div th:replace="header"></div>
+		<h3 th:text="${sd.title}"></h3>
+		<h4>--この内容でよろしければ登録ボタンを押してください--</h4>
+		<form th:action="${sd.action}" method="post">
+			<table>
+				<tr>
+					<th>社員コード</th>
+					<td>
+						<input type="text" name="shain_code" readonly>
+					</td>
+					<th>ログインフラグ</th>
+					<td>
+						<input type="hidden" name="login_flg" th:value="${sd.login_flg}">
+						<th:block th:if="${sd.login_flg} == '0'">可</th:block>
+						<th:block th:if="${sd.login_flg} == '1'">不可</th:block>
+					</td>
+				</tr>
+				<tr>
+					<th>社員名</th>
+					<td>
+						<input type="text" name="shain_name" th:value="${sd.shain_name}" readonly>
+					</td>
+					<th>権限</th>
+					<td th:text="${sd.kengen_name}">
+						<input type="hidden" name="kengen_code" th:value="${sd.kengen_code}">
+					</td>
+				</tr>
+				<tr>
+					<th>社員名（カナ）</th>
+						<td>
+							<input type="text" name="shain_name_kana" th:value="${sd.shain_name_kana}" readonly>
+						</td>
+					<th>メールアドレス</th>
+					<td>
+						<input type="email" name="mail_address" th:value="${sd.mail_address}" readonly>
+					</td>
+				</tr>
+			<tr>
+				<th>パスワード</th>
+				<td>
+					<input type="password" name="password" th:value="${sd.password}" readonly>
+				</td>
+				<th>削除フラグ</th>
+				<td>
+					<input type="hidden" name="delete_flg" th:value="${sd.delete_flg}">
+					<th:block th:if="${sd.delete_flg} == '0'">在職社員</th:block>
+					<th:block th:if="${sd.delete_flg} == '1'">削除データ</th:block>
+				</td>
+			</tr>
+			<tr>
+				<th>パスワード（確認用）</th>
+				<td>
+				</td>
+				<td colspan="2">
+					<button type="submit">登録</button>
+					<button type="button" onclick="cancel()">キャンセル</button>
+				</td>
+			</tr>
+		</table>
+		</form>
+
+	</div>
+</body>
+</html>
+
+<style>
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Noto Sans JP';
+}
+
+h3{
+	font-size: 19.2px;
+	padding: 30px 0;
+}
+
+th{
+	padding: 10px 40px;
+	border: solid 1px #bbb;
+	background: #eee;
+}
+
+td{
+	padding: 10px 40px;
+		border: solid 1px #eee;
+}
+
+.shainregist{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+</style>
