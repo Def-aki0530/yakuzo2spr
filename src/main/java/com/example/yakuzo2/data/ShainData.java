@@ -27,4 +27,6 @@ public class ShainData {
 	private String title = "";
 	private String action= "";
 	private String msg = "";
+	private String readonly = "";
+	private int checkflg = 0; //0=新規作成 1=編集登録
 }

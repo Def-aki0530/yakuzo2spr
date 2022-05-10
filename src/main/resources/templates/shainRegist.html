@@ -14,7 +14,7 @@
 				<tr>
 					<th>社員コード</th>
 					<td>
-						<input type="text" name="shain_code" required>
+						<input type="text" name="shain_code" th:value="${sd.shain_code}" th:readonly="${sd.readonly} == 'readonly'" required>
 					</td>
 					<th>ログインフラグ</th>
 					<td>

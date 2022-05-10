@@ -45,6 +45,26 @@ public class ShainController {
 		return "shainRegist";
 	}
 
+	@PostMapping("/shainedit")
+	public String dispEdit(@ModelAttribute("sd") ShainData sd,Model model) {
+		//権限マスタリストの取得
+		ss.makeKengenList(sd);
+
+		//動的項目のセット
+		sd.setTitle("社員データ編集登録");
+		sd.setAction("editshaindata");
+
+		//対象データの取得
+		ss.getShainData(sd);
+
+		//社員コード表示の制御
+		sd.setReadonly("readonly");
+
+		//画面表示
+		return "shainRegist";
+
+	}
+
 	@PostMapping("/insertshaindata")
 	public String insertShain(@ModelAttribute("sd") ShainData sd,Model model) {
 
@@ -62,10 +82,39 @@ public class ShainController {
 		return "shainConfirm";
 	}
 
+	@PostMapping("/editshaindata")
+	public String editShain(@ModelAttribute("sd") ShainData sd,Model model) {
+		//チェック方法の制御
+		sd.setCheckflg(1);
+
+		if(!ss.check(sd)) {
+			ss.makeKengenList(sd);
+			sd.setTitle("社員データ編集登録");
+			sd.setAction("editshaindata");
+			return "shainRegist";
+		}
+
+		sd.setTitle("社員データ編集登録確認");
+		sd.setAction("exeupdateshain");
+		ss.getKengenName(sd);
+
+		return "shainConfirm";
+
+	}
+
 	@PostMapping("/exeinsertshain")
 	public String exeInsert(@ModelAttribute("sd") ShainData sd,Model model) {
 		sd.setRegist_shain_code(session.getAttribute("login_shain_code").toString());
 		ss.exeInsert(sd);
+
+		//完了画面
+		return "shainComplete";
+	}
+
+	@PostMapping("/exeupdateshain")
+	public String exeUpdate(@ModelAttribute("sd") ShainData sd,Model model) {
+		sd.setRegist_shain_code(session.getAttribute("login_shain_code").toString());
+		ss.exeUpdate(sd);
 
 		//完了画面
 		return "shainComplete";

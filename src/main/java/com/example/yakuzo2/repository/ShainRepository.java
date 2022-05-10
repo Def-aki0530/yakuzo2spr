@@ -182,6 +182,54 @@ public class ShainRepository {
 		jt.update(sql,param.toArray());
 
 	}
+	//編集登録処理
+	public void exeUpdate(ShainData sd) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new ArrayList();
+
+		sql.append("update mst_shain set ");
+		sql.append("shain_name = ?,");
+		sql.append("shain_name_kana = ?,");
+		sql.append("password = ?,");
+		sql.append("login_flg = ?,");
+		sql.append("mail_address = ?,");
+		sql.append("kengen_code = ?,");
+		sql.append("delete_flg = ?,");
+		sql.append("updated_on = Now(),");
+		sql.append("updated_by = ? ");
+		sql.append("where shain_code = ?");
+
+		param.add(sd.getShain_name());
+		param.add(sd.getShain_name_kana());
+		param.add(sd.getPassword());
+		param.add(sd.getLogin_flg());
+		param.add(sd.getMail_address());
+		param.add(sd.getKengen_code());
+		param.add(sd.getDelete_flg());
+		param.add(sd.getRegist_shain_code());
+		param.add(sd.getShain_code());
+
+		jt.update(sql.toString(),param.toArray());
+
+	}
+
+
+	//社員データ取得
+	public void getShainData(ShainData sd) {
+		//SQL作成
+		String sql = "select * from mst_shain where shain_code = ?";
+		//実行
+		Map<String,Object> map = jt.queryForMap(sql,sd.getShain_code());
+		//実行結果をフィールドにセット
+		sd.setShain_name(map.get("shain_name").toString());
+		sd.setShain_name_kana(map.get("shain_name_kana").toString());
+		sd.setPassword(map.get("password").toString());
+		sd.setPassword2(map.get("password").toString());
+		sd.setLogin_flg(map.get("login_flg").toString());
+		sd.setMail_address(map.get("mail_address").toString());
+		sd.setKengen_code(map.get("kengen_code").toString());
+		sd.setDelete_flg(map.get("delete_flg").toString());
+	}
 }
 
 

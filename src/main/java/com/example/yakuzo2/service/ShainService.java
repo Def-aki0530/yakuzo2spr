@@ -25,9 +25,11 @@ public class ShainService {
 	}
 
 	public boolean check(ShainData sd) {
-		if(!sr.checkExists(sd)) {
-			sd.setMsg("社員コードは既に使用されています。");
-			return false;
+		if(sd.getCheckflg() == 0) {
+			if(!sr.checkExists(sd)) {
+				sd.setMsg("社員コードは既に使用されています。");
+				return false;
+			}
 		}
 
 		if(!sd.getPassword().equals(sd.getPassword2())) {
@@ -43,5 +45,13 @@ public class ShainService {
 
 	public void exeInsert(ShainData sd) {
 		sr.exeInsert(sd);
+	}
+
+	public void exeUpdate(ShainData sd) {
+		sr.exeUpdate(sd);
+	}
+
+	public void getShainData(ShainData sd) {
+		sr.getShainData(sd);
 	}
 }
