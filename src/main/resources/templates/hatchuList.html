@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table>
+		<tr>
+			<th>店舗</th>
+			<th>取引先</th>
+			<th>発注日</th>
+			<th>薬品区分</th>
+			<th>薬品名</th>
+			<th>包装量</th>
+			<th>発注数</th>
+			<th>数量区分</th>
+			<th>発注区分</th>
+			<th>照合フラグ</th>
+			<th>処理区分</th>
+			<th>編集</th>
+			<th>削除</th>
+		</tr>
+		<th:block th:each="map : ${hd.list}">
+			<tr>
+				<td th:text="${map.tenpo_name}"></td>
+				<td th:text="${map.torihikisaki_name}"></td>
+				<td th:text="${map.hatchu_date}"></td>
+				<td th:text="${map.yakuhin_kbn}"></td>
+				<td th:text="${map.hanbai_name}"></td>
+				<td th:text="${map.hoso_gryo}"></td>
+				<td th:text="${map.hatchu_su}"></td>
+				<td th:text="${map.suryo_kbn}"></td>
+				<td th:text="${map.hatchu_kbn}"></td>
+				<td th:text="${map.shogo_flg}"></td>
+				<td th:text="${map.shori_kbn}"></td>
+				<td>
+					<form action="hatchuedit" method="post">
+						<input type="hidden" name="hatchu_seq" th:value="${map.hatchu_seq}">
+						<button type="submit">編集</button>
+					</form>
+				</td>
+				<td>
+					<form action="hatchudel" method="post">
+						<input type="hidden" name="hatchu_seq" th:value="${map.hatchu_seq}">
+						<button type="submit">削除</button>
+					</form>
+				</td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>
+
+<style>
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Noto Sans JP';
+}
+
+.hatchu{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+h3{
+	font-size: 19.2px;
+	padding: 30px 0;
+}
+
+th{
+	padding: 10px 40px;
+	border: solid 1px #bbb;
+	background: #eee;
+}
+
+td{
+	padding: 10px 40px;
+		border: solid 1px #bbb;
+}
+
+button{
+	padding: 0.5rem;
+	background: #eee;
+	border: solid 1px #bbb;
+}
+
+button:hover{
+	background: #bbb;
+}
+</style>

@@ -17,7 +17,7 @@ public class LoginService {
 	LoginRepository lr;
 
 	public void getTenpoList(LoginData ld) {
-		tr.getTenpoList(ld);
+		ld.setList(tr.getTenpoList());
 	}
 
 	public boolean check(LoginData ld) {

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>薬品在庫管理システム</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+<script src="js/jquery.twbsPagination.min.js"></script>
+<script type="text/javascript" src="js/hatchu.js"></script>
+</head>
+<body>
+	<div th:replace="header"></div>
+
+	<div class="hatchu">
+		<h3>発注履歴一覧</h3>
+		<div>
+			<form name="f1" action="hatchushinki" method="post">
+				<table>
+					<tr>
+						<th>1.　薬品区分</th>
+						<td>
+							<select name="yakuhin_kbn">
+								<option value="">--選択なし--</option>
+								<option value="1">薬品</option>
+								<option value="2">OTC</option>
+								<option value="4">特材</option>
+							</select>
+						</td>
+						<th>5. 店舗</th>
+						<td>
+							<th:block th:if="${session.login_kengen_code} == '002'">
+								<input type="hidden" name="tenpo_code" th:value="${session.login_tenpo_code}">
+							</th:block>
+							<select name="tenpo_code" th:disabled="${session.login_kengen_code} == '002'">
+								<option value="">--選択なし--</option>
+								<th:block th:each="map : ${hd.tenpo_list}">
+									<option th:value="${map.torihikisaki_code}"
+												th:selected="${map.torihikisaki_code} == ${session.login_tenpo_code}"
+												th:text="${map.torihikisaki_name}">
+									</option>
+								</th:block>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>2. 発注日</th>
+						<td>
+							<input type="date" name="date_from">&nbsp;&nbsp;~&nbsp;&nbsp;
+							<input type="date" name="date_to">
+						</td>
+						<th>6. 発注区分</th>
+						<td>
+							<select name="hatchu_kbn">
+								<option value="">--選択なし--</option>
+								<option value="1">メディコード</option>
+								<option value="2">その他</option>
+								<option value="3">EPI</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>3. 取引先</th>
+						<td>
+							<input type="text" name="torihikisaki">
+						</td>
+						<th>7. 処理区分</th>
+						<td>
+							<select name="shori_kbn">
+								<option value="">--選択なし--</option>
+								<option value="1">未納品</option>
+								<option value="2">納品中</option>
+								<option value="3">納品済</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>4. 薬品</th>
+						<td>
+							<input type="text" name="yakuhin">
+						</td>
+						<th>8. マスタ照合</th>
+						<td>
+							<select name="shogo_flg">
+								<option value="">--選択なし--</option>
+								<option value="0">未照合</option>
+								<option value="1">照合済</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<button type="button" onclick="getPages()">検索</button>
+							<button type="submit">新規作成</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+
+		<nav aria-label="Page navigation">
+			<ul class="pagination" id="pagination"></ul>
+		</nav>
+
+		<div id="list"></div>
+	</div>
+</body>
+</html>
+
+<style>
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Noto Sans JP';
+}
+
+.hatchu{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+h3{
+	font-size: 19.2px;
+	padding: 30px 0;
+}
+
+th{
+	padding: 10px 40px;
+	border: solid 1px #bbb;
+	background: #eee;
+}
+
+td{
+	padding: 10px 40px;
+		border: solid 1px #bbb;
+}
+
+button{
+	padding: 0.5rem;
+	background: #eee;
+	border: solid 1px #bbb;
+}
+
+button:hover{
+	background: #bbb;
+}
+
+.pagination{
+	margin: 20px 0;
+}
+</style>

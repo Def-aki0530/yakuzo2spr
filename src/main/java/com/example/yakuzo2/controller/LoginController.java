@@ -30,7 +30,7 @@ public class LoginController {
 	@PostMapping("/put_login")
 	public String putLogin(@ModelAttribute("ld") LoginData ld,Model model) {
 		if(!ls.check(ld)) {
-
+			ls.getTenpoList(ld);
 			return "login";
 		}
 

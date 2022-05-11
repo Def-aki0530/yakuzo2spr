@@ -1,5 +1,6 @@
 package com.example.yakuzo2.repository;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,10 @@ public class TorihikisakiRepository {
 		@Autowired
 		JdbcTemplate jt;
 
-		public void getTenpoList(LoginData ld) {
+		public  List<Map<String,Object>> getTenpoList() {
 			//SQL
 			String sql = "select torihikisaki_code, torihikisaki_name from mst_torihikisaki where torihikisaki_kbn = '2' and delete_flg = '0'";
-			ld.setList(jt.queryForList(sql));
+			return jt.queryForList(sql);
 		}
 
 		public void getTenpoName(LoginData ld) {
