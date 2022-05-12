@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>薬品在庫管理システム</title>
+</head>
+<body>
+<div th:replace="header"></div>
+
+<div class="hatchu-regist">
+	<h3 th:text="${hd.title}"></h3>
+	<form th:action="${hd.action}" method="post">
+		<table>
+			<tr>
+				<th>発注連番</th>
+				<td>
+					<input type="text" name="hatchu_seq" th:value="${hd.hatchu_seq}" th:readonly="${hd.readonly} == 'readonly' " required>
+				</td>
+				<td></td>
+				<th>入荷数</th>
+				<td>
+					<input type="text" name="nyuka_su" th:value="${hd.nyuka_su}" required>
+				</td>
+			</tr>
+			<tr>
+				<th>店舗</th>
+				<td>
+					<th:block th:if="${session.login_kengen_code} == '002' ">
+						<input type="hidden" name="tenpo_code" th:value="${session.login_tenpo_code}">
+						<span th:text="${session.login_tenpo_name}"></span>
+					</th:block>
+					<th:block th:if="${session.login_kengen_code} != '002' ">
+						<select name="tenpo_code">
+							<th:block th:each="map : ${hd.tenpo_list}">
+								<option th:value="${map.torihikisaki_code}"
+											th:selected="${map.torihikisaki_code} == ${hd.tenpo_code}"
+											th:text="${map.torihikisaki_name}"></option>
+							</th:block>
+						</select>
+					</th:block>
+				</td>
+				<td></td>
+				<th>発注区分</th>
+				<td>
+					<select name="hatchu_kbn">
+						<option value="1" th:selected="${hd.hatchu_kbn} == '1' ">メディコード</option>
+						<option value="2" th:selected="${hd.hatchu_kbn} == '2' ">その他</option>
+						<option value="3" th:selected="${hd.hatchu_kbn} == '3' ">EPI</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>取引先</th>
+				<td>
+					<input type="hidden" name="torihikisaki_code" id="torihikisaki_code" th:value="${hd.torihikisaki_code}">
+					<input type="text" name="torihikisaki_name" id="torihikisaki_name" th:value="${hd.torihikisaki_name}" readonly required>
+				</td>
+				<td>
+					<a href="torihikisakiSansho">参照</a>
+				</td>
+				<th>発注日</th>
+				<td>
+					<input type="date" name="hatchu_date" th:value=${hd.hatchu_date} required>
+				</td>
+			</tr>
+			<tr>
+				<th>薬品</th>
+				<td>
+					<input type="hidden" name="yj_code" id="yj_code" th:value="${hd.yj_code}">
+					<input type="hidden" name="yakuhin_kbn" id="yakuhin_kbn" th:value="${hd.yakuhin_kbn}">
+					<input type="text" name="hanbai_name" th:value="${hd.hanbai_name}" readonly>
+				</td>
+				<td>
+					<a href="yakuhinSansho">参照</a>
+				</td>
+				<th>処理区分</th>
+				<td>
+					<select name="syori_kbn">
+						<option value="1" th:selected="${hd.shori_kbn} == '1' ">未納品</option>
+						<option value="2" th:selected="${hd.shori_kbn} == '2' ">納品中</option>
+						<option value="3" th:selected="${hd.shori_kbn} == '3' ">納品済</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>JANコード</th>
+				<td>
+					<input type="text" name="jan_code" id="jan_code" th:value="${hd.jan_code}" readonly>
+				</td>
+				<td></td>
+				<th>照合フラグ</th>
+				<td>
+					<select name="shogo_flg">
+						<option value="1" th:selected="${hd.shogo_flg} == '1' ">未照合</option>
+						<option value="2" th:selected="${hd.shogo_flg} == '2' ">照合済</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>発注数</th>
+				<td>
+					<input type="text" name="hatchu_su" th:value="${hd.hatchu_su}">
+				</td>
+				<td></td>
+				<th>備考</th>
+				<td>
+					<input type="text" name="biko" th:value="${hd.biko}">
+				</td>
+			</tr>
+			<tr>
+				<th>数量区分</th>
+				<td>
+					<select name="suryo_kbn">
+						<option value="1" th:selected="${hd.suryo_kbn} == '1' ">箱</option>
+						<option value="2" th:selected="${hd.suryo_kbn} == '2' ">バラ</option>
+					</select>
+				</td>
+				<td></td>
+				<td></td>
+				<td>
+					<button type="submit">登録</button>&nbsp;&nbsp;
+					<button type="button" onclick="cancel()">キャンセル</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+	<span th:text="${hd.msg}"></span>
+</div>
+
+</body>
+</html>
+
+<style>
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', 'Noto Sans JP';
+}
+
+.hatchu-regist{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+h3{
+	font-size: 19.2px;
+	padding: 30px 0;
+}
+
+th{
+	padding: 10px 40px;
+	border: solid 1px #bbb;
+	background: #eee;
+}
+
+td{
+	padding: 10px 40px;
+		border: solid 1px #bbb;
+}
+
+button{
+	padding: 0.5rem;
+	background: #eee;
+	border: solid 1px #bbb;
+}
+
+button:hover{
+	background: #bbb;
+}
+</style>

@@ -32,4 +32,15 @@ public class HatchuController {
 		//一覧用html呼び出し
 		return "hatchuList";
 	}
+
+	@PostMapping("/hatchushinki")
+	public String hatchuShinki(@ModelAttribute("hd") HatchuData hd,Model model) {
+		//HatchuServiceを通じて、必要なデータをDataクラスに持たせる
+		hs.getTenpoList(hd);
+		//動的項目の設定
+		hd.setTitle("発注データ新規登録");
+		hd.setAction("hatchuconfilm");
+		//画面表示
+		return "hatchuRegist";
+	}
 }

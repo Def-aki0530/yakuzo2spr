@@ -37,7 +37,7 @@ function getList(arrData){
 		"hatchugetlist",
 		arrData,
 		function(data){
-				alert(data);
+				//alert(data);
 				$("#list").html(data);
 		}
 	);
