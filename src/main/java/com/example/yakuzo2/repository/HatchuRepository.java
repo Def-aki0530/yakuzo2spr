@@ -332,4 +332,37 @@ public class HatchuRepository {
 		return (int)(Math.ceil(rec / 25));
 
 	}
+
+	public int y_sansho_getPages(HatchuData hd) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new ArrayList();
+
+		sql.append("select count(*) as cnt ");
+		sql.append("from mst_shohin ");
+		//yakuhin
+		if(!hd.getYakuhin().equals("")) {
+			sql.append("where (");
+			sql.append("jan_code = ? ");
+			sql.append("or hanbai_name like ? ");
+			sql.append(") ");
+			param.add(hd.getYakuhin());
+			param.add("%" + hd.getYakuhin() + "%");
+		}
+		//yakuhin_kbn
+		if(!hd.getYakuhin_kbn().equals("")) {
+			if(param.size() == 0) {
+				sql.append("where ");
+			} else {
+				sql.append("and ");
+			}
+			sql.append("yakuhin_kbn = ?");
+			param.add(hd.getYakuhin_kbn());
+		}
+
+		Map<String,Object> map = jt.queryForMap(sql.toString(),param.toArray());
+
+		double rec = Double.parseDouble(map.get("cnt").toString());
+		return (int)(Math.ceil(rec / 25));
+
+	}
 }

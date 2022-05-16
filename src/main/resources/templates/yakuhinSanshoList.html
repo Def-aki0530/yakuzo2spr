@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table class="table-auto mx-auto border">
+		<tr class="h-10 py-2">
+			<th class="px-3 text-center font-bold border">JANコード</th>
+			<th class="px-3 text-center font-bold border">薬品名</th>
+			<th class="px-3 text-center font-bold border">薬品区分</th>
+			<th class="px-3 text-center font-bold border">YJコード</th>
+		</tr>
+		<th:block th:each="map : ${hd.yakuhin_list}">
+			<tr class="h-10 hover:bg-yellow-100">
+				<td class="border">
+					<!-- <form name="ts">
+						<input type="hidden" name="torihikisaki_code" th:value="${map.torihikisaki_code}">
+						<input type="hidden" name="torihikisaki_name" th:value="${map.torihikisaki_name}">
+						<button class="text-blue-500 hover:text-blue-900 underline" type="button" onclick="choiceSpl()" th:text="${map.torihikisaki_code}"></button>
+					</form> -->
+					<a href="#" th:onclick="|choiceYakuhin('__${map.jan_code}__','__${map.hanbai_name}__',
+														'__${map.yakuhin_kbn}__','__${map.yj_code}__')|"
+						th:text="${map.yj_code}"></a>
+
+				</td>
+				<td class="border" th:text="${map.hanbai_name}"></td>
+				<td class="border">
+					<th:block th:if="${map.yakuhin_kbn} == '1'">薬品</th:block>
+					<th:block th:if="${map.yakuhin_kbn} == '2'">ＯＴＣ</th:block>
+					<th:block th:if="${map.yakuhin_kbn} == '4'">特材</th:block>
+				</td>
+				<td class="border" th:text="${map.yj_code}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>

@@ -47,11 +47,23 @@ public class HatchuController {
 	@GetMapping("/torihikisakisansho")
 	public String disptorihikisakimodal() {
 
-		return "torihikisakisansho";
+		return "torihikisakiSansho";
 	}
 	@PostMapping("/t-sansho-getlist")
 	public String t_sansho_getList(@ModelAttribute("hd") HatchuData hd,Model model) {
 		hs.getTorihikisakiList(hd);
 		return "torihikisakiSanshoList";
+	}
+
+	@GetMapping("/yakuhinsansho")
+	public String dispyakuhinmodal() {
+		return "yakuhinSansho";
+	}
+
+	@PostMapping("/y-sansho-getlist")
+	public String y_sansho_getList(@ModelAttribute("hd") HatchuData hd,Model model) {
+		hs.getYakuhinList(hd);
+		System.out.println(model.toString());
+		return "yakuhinSanshoList";
 	}
 }

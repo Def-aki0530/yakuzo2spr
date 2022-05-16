@@ -49,4 +49,5 @@ public class HatchuData {
 
 	private String torihikisaki_kbn;
 	private List<Map<String,Object>> torihikisaki_list;
+	private List<Map<String,Object>> yakuhin_list;
 }

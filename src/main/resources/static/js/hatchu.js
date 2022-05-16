@@ -120,3 +120,54 @@ function choiceSpl(code,name){
 	$("#torihikisaki_name").val(name);
 	mdl1.modaal('close');
 }
+
+function searchYakuhin(){
+	//alert("call success");
+
+	let fd = new FormData(frm);
+	let arrData = {};
+	for(let value of fd.entries()){
+		arrData[value[0]] = value[1];
+	}
+
+	$.post(
+		"y-sansho-getpage",
+		arrData,
+		function(data){
+			//alert(data);
+			if(data == 0){
+				$(".pagination").twbsPagination("destroy");
+			}
+			$(".pagination").twbsPagination("destroy");
+			$(".pagination").twbsPagination({
+				totalPages : data,
+				visiblePages : 5,
+				onPageClick : function(event,page){
+					arrData["page"] = page;
+					yakuhinGetList(arrData);
+				}
+			});
+
+		}
+	);
+
+}
+
+function yakuhinGetList(arrData){
+	alert(arrData["page"]);
+	$.post(
+		"y-sansho-getlist",
+		arrData,
+		function(data){
+			$("#list").html(data);
+		}
+	);
+}
+
+function choiceYakuhin(jan,name,kbn,yj){
+	$("#jan_code").val(jan);
+	$("#hanbai_name").val(name);
+	$("#yakuhin_kbn").val(kbn);
+	$("#yj_code").val(yj);
+	mdl2.modaal('close');
+}

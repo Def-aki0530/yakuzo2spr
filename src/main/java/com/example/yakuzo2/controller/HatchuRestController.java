@@ -26,4 +26,10 @@ public class HatchuRestController {
 		//System.out.println("取引先参照：" + model.toString());
 		return hr.t_sansho_getPages(hd);
 	}
+
+	@PostMapping("/y-sansho-getpage")
+	public int y_sansho_getPages(HatchuData hd,Model model){
+		//System.out.println("取引先参照：" + model.toString());
+		return hr.y_sansho_getPages(hd);
+	}
 }
