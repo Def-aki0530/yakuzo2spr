@@ -3,6 +3,7 @@ package com.example.yakuzo2.repository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -363,6 +364,65 @@ public class HatchuRepository {
 
 		double rec = Double.parseDouble(map.get("cnt").toString());
 		return (int)(Math.ceil(rec / 25));
+
+	}
+
+	public void insertHatchuData(HatchuData hd) {
+		/*
+		 * 新しい発注連番(hatchu_seq)の生成
+		 * 方法：
+		 * その年度の一番大きなhatchuseqを取得
+		 * hatchu_seqの構造
+		 * h + 年度 + 11桁の連番
+		 * に合わせて生成する
+		 */
+
+		//入力された発注日の年度を取得(10月決算の会社の年度を計算する)
+		String[] arrDay = hd.getHatchu_date().split("-");
+		int nendo = Integer.parseInt(arrDay[0]);
+		int month = Integer.parseInt(arrDay[1]);
+		if(month <= 10) nendo--;
+		//最新hatchu_seqを取得
+		String sql  = "select max(hatchu_seq) as hatchu_seq from hatchu where nendo = '" + nendo + "'";
+		Map<String,Object> map = jt.queryForMap(sql);
+
+		String seq = "00000000001";
+
+		if(!Objects.isNull(map.get("hatchu_seq"))) {
+			String old_seq = map.get("hatchu_seq").toString();
+			int int_seq = Integer.parseInt(old_seq.substring(5,16));
+			int_seq++;
+			seq = String.format("%011d", int_seq);
+		}
+
+		String new_seq = "h" + nendo + seq;
+
+		//insert
+
+		sql = "insert into hatchu values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?,now(),?)";
+		List<Object> param = new ArrayList();
+
+		param.add(new_seq);
+		param.add(Integer.toString(nendo));
+		param.add(hd.getTenpo_code());
+		param.add(hd.getTorihikisaki_code());
+		param.add(hd.getYakuhin_kbn());
+		param.add(hd.getJan_code());
+		param.add(hd.getYj_code());
+		param.add("");
+		param.add(hd.getHatchu_su());
+		param.add(hd.getSuryo_kbn());
+		param.add(hd.getNyuka_su());
+		param.add(hd.getHatchu_kbn());
+		param.add(hd.getHatchu_date());
+		param.add(hd.getShori_kbn());
+		param.add(hd.getShogo_flg());
+		param.add("0");
+		param.add(hd.getBiko());
+		param.add(hd.getLogin_shain_code());
+		param.add(hd.getLogin_shain_code());
+
+		jt.update(sql,param.toArray());
 
 	}
 }

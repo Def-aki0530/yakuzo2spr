@@ -41,11 +41,15 @@ public class HatchuData {
 	private String updated_by = "";
 	//共通項目
 	private String title = "";
+	private String subtitle = "";
 	private String action = "";
+	private String button_name = "";
 	private String msg = "";
+	private String cancel_action = "";
 	private String login_shain_code = "";
 	private String login_kengen_code = "";
 	private String readonly = "";
+	private String txtComplete = "";
 
 	private String torihikisaki_kbn;
 	private List<Map<String,Object>> torihikisaki_list;

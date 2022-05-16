@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>薬品在庫管理システム</title>
+</head>
+<body>
+	<div th:replace="header"></div>
+
+	<div class="w-1/2 mx-auto bg-blue-200 p-2 my-5">
+		<p class="text-xl font-bold mb-3" th:text="${hd.txtComplete}"></p>
+		<ul>
+			<li><a href="hatchuregist">新規登録処理を続ける</a></li>
+			<li><a href="hatchu">発注一覧に戻る</a></li>
+		</ul>
+	</div>
+</body>
+</html>

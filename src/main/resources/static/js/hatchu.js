@@ -57,22 +57,6 @@ function cancel(){
 }
 
 function searchTorihikisaki(){
-	let fd = new FormData(frm);
-	let arrData = {};
-	for(let value of fd.entries()){
-		arrData[value[0]] = value[1];
-	}
-
-	$.post(
-		"t-sansho-getpage",
-		arrData,
-		function(data){
-			alert(data);
-		}
-	);
-}
-
-function searchTorihikisaki(){
 	//alert("call success");
 
 	let fd = new FormData(frm);
@@ -154,7 +138,7 @@ function searchYakuhin(){
 }
 
 function yakuhinGetList(arrData){
-	alert(arrData["page"]);
+	//alert(arrData["page"]);
 	$.post(
 		"y-sansho-getlist",
 		arrData,
@@ -171,3 +155,4 @@ function choiceYakuhin(jan,name,kbn,yj){
 	$("#yj_code").val(yj);
 	mdl2.modaal('close');
 }
+

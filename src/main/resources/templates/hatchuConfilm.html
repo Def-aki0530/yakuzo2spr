@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>薬品在庫管理システム</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"><!-- 追加 -->
+<link rel="stylesheet" href="css/modaal.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script><!-- 追加 -->
+<script src="js/jquery.twbsPagination.min.js"></script><!-- 追加 -->
+<script src="js/modaal.min.js"></script>
+<script src="js/hatchu.js"></script>
+<body>
+	<div th:replace="header"></div>
+	<h3 class="text-3xl font-bold text-center my-5" th:text="${ hd.title }"></h3>
+	<h4 class="text-2xl text-center mb-5" th:text="${hd.subtitle}"></h4>
+
+	<div class="w-6/12 mx-auto p-3 bg-blue-100">
+		<form th:action="${ hd.action}" method="post">
+			<table class="text-xl mx-fixed mx-auto">
+				<tr class="h-10">
+					<th class="text-left w-2/12">発注連番</th>
+					<td class="text-left w-3/12">
+						<input type="text" name="hatchu_seq" th:value="${ hd.hatchu_seq}" readonly>
+					</td>
+					<td class="w-2/12"></td>
+					<th class="text-left w-2/12">入荷数</th>
+					<td class="text-left w-3/12">
+						<input type="number" name="nyuka_su" th:value="${ hd.nyuka_su}" readonly>
+					</td>
+				</tr>
+				<tr class="h-10">
+					<th class="text-left">店舗</th>
+					<td class="text-left">
+						<span th:text="${hd.tenpo_name}"></span>
+						<input type="hidden" name="tenpo_code" th:value="${hd.tenpo_code}">
+						<td></td>
+						<th class="text-left">発注区分</th>
+						<td class="text-left">
+							<th:block th:if="${hd.hatchu_kbn} == '1'" >メディコード</th:block>
+							<th:block th:if="${hd.hatchu_kbn} == '2'">その他</th:block>
+							<th:block th:if="${hd.hatchu_kbn} == '3'">ＥＰＩ</th:block>
+							<input type="hidden" name="hatchu_kbn" th:value="${hd.hatchu_kbn}">
+						</td>
+				</tr>
+				<tr class="h-10">
+					<th class="text-left">取引先</th>
+					<td>
+						<input type="hidden" name="torihikisaki_code" id="torihikisaki_code" th:value="${hd.torihikisaki_code}">
+						<input type="text" name="torihikisaki_name" id="torihikisaki_name" th:value="${hd.torihikisaki_name}" readonly>
+					</td>
+					<td class="text-left">
+
+					</td>
+					<th class="text-left">発注日</th>
+					<td class="text-left">
+						<input type="date" name="hatchu_date" th:value="${hd.hatchu_date}">
+					</td>
+				</tr>
+				<tr class="h-10">
+					<th class="text-left">薬品</th>
+					<td class="text-left">
+						<input type="text" name="hanbai_name" id="hanbai_name" th:value="${hd.hanbai_name}" readonly>
+						<input type="hidden" name="yj_code" id="yj_code" th:value="${hd.yj_code}">
+						<input type="hidden" name="yakuhin_kbn" id="yakuhin_kbn" th:value="${hd.yakuhin_kbn}">
+					</td>
+					<td class="text-left">
+
+					</td>
+					<th class="text-left">処理区分</th>
+					<td class="text-left">
+						<th:block th:if="${hd.shori_kbn} == '1'">未納品</th:block>
+						<th:block th:if="${hd.shori_kbn} == '2'">納品中</th:block>
+						<th:block th:if="${hd.shori_kbn} == '3'">納品済</th:block>
+						<input type="hidden" name="shori_kbn" th:value="${hd.shori_kbn}">
+					</td>
+				</tr>
+				<tr class="h-10">
+					<th class="text-left">JANコード</th>
+					<td class="text-left">
+						<input type="text" name="jan_code" id="jan_code" th:value="${hd.jan_code}" readonly>
+					</td>
+					<td></td>
+					<th class="text-left">照合フラグ</th>
+					<td class="text-left">
+						<th:block th:if="${hd.shogo_flg} == '0'">未照合</th:block>
+						<th:block th:if="${hd.shogo_flg} == '1'">照合済</th:block>
+						<input type="hidden" name="shogo_flg" th:value="${hd.shogo_flg}">
+					</td>
+				</tr>
+				<tr class="h-10">
+					<th class="text-left">発注数</th>
+					<td class="text-left">
+						<input type="number" name="hatchu_su" th:value="${hd.hatchu_su}" readonly>
+					</td>
+					<td></td>
+					<th class="text-left">備考</th>
+					<td>
+						<input type="text" name="biko" th:value="${hd.biko}" readonly>
+					</td>
+				</tr>
+				<tr class="h-10">
+					<th class="text-left">数量区分</th>
+					<td class="text-left">
+						<th:block th:if="${hd.suryo_kbn} == '1'">箱</th:block>
+						<th:block th:if="${hd.suryo_kbn} == '2'">バラ</th:block>
+						<input type="hidden" name="suryo_kbn" th:value="${hd.suryo_kbn}">
+					</td>
+					<td></td>
+					<th></th>
+					<td colspan="2" class="text-center">
+						<button
+							type="submit" th:text="${hd.button_name}"></button> &nbsp;&nbsp;
+						<button
+							type="submit" th:formaction="${hd.cancel_action}">キャンセル</button>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
+
+<style>
+h3{
+	font-size: 19.2px;
+	padding: 30px 0;
+}
+
+th{
+	padding: 10px 40px;
+	border: solid 1px #bbb;
+	background: #eee;
+}
+
+td{
+	padding: 10px 40px;
+		border: solid 1px #bbb;
+}
+
+button{
+	padding: 0.5rem;
+	background: #eee;
+	border: solid 1px #bbb;
+}
+
+button:hover{
+	background: #bbb;
+}
+</style>
