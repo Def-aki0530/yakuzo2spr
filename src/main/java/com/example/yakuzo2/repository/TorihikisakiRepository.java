@@ -1,5 +1,6 @@
 package com.example.yakuzo2.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +27,36 @@ public class TorihikisakiRepository {
 			Map<String,Object> map = jt.queryForMap(sql,ld.getTenpo_code());
 
 			ld.setTenpo_name(map.get("torihikisaki_name").toString());
+		}
+
+		public List<Map<String,Object>> getSanshoData(String torihikisaki,String kbn,int page){
+			StringBuilder sql = new StringBuilder();
+			List<Object> param = new ArrayList();
+
+			sql.append("select torihikisaki_code,torihikisaki_name ");
+			sql.append("from mst_torihikisaki ");
+			//torihikisaki
+			if(!torihikisaki.equals("")) {
+				sql.append("where (");
+				sql.append("torihikisaki_code = ? ");
+				sql.append("or torihikisaki_name like ? ) ");
+				param.add(torihikisaki);
+				param.add("%" + torihikisaki + "%");
+			}
+			//torihikisaki_kbn
+			if(!kbn.equals("")) {
+				if(param.size() == 0) {
+					sql.append("where ");
+				} else {
+					sql.append("and ");
+				}
+				sql.append("torihikisaki_kbn = ? ");
+				param.add(kbn);
+			}
+			//limit
+			sql.append("limit ? , 25");
+			param.add((page - 1) * 25);
+
+			return jt.queryForList(sql.toString(),param.toArray());
 		}
 }

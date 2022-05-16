@@ -23,4 +23,8 @@ public class HatchuService {
 		public void getList(HatchuData hd) {
 			hr.getList(hd);
 		}
+
+		public void getTorihikisakiList(HatchuData hd) {
+			hd.setTorihikisaki_list(tr.getSanshoData(hd.getTorihikisaki(),hd.getTorihikisaki_kbn() , hd.getPage()));
+		}
 }

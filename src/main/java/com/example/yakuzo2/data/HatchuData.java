@@ -46,4 +46,7 @@ public class HatchuData {
 	private String login_shain_code = "";
 	private String login_kengen_code = "";
 	private String readonly = "";
+
+	private String torihikisaki_kbn;
+	private List<Map<String,Object>> torihikisaki_list;
 }

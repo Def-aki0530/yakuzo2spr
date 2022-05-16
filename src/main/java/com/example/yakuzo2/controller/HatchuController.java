@@ -43,4 +43,15 @@ public class HatchuController {
 		//画面表示
 		return "hatchuRegist";
 	}
+
+	@GetMapping("/torihikisakisansho")
+	public String disptorihikisakimodal() {
+
+		return "torihikisakisansho";
+	}
+	@PostMapping("/t-sansho-getlist")
+	public String t_sansho_getList(@ModelAttribute("hd") HatchuData hd,Model model) {
+		hs.getTorihikisakiList(hd);
+		return "torihikisakiSanshoList";
+	}
 }

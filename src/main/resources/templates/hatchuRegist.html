@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>薬品在庫管理システム</title>
+<link rel="stylesheet" href="css/modaal.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"><!-- 追加 -->
+<link rel="stylesheet" href="css/modaal.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script><!-- 追加 -->
+<script src="js/jquery.twbsPagination.min.js"></script><!-- 追加 -->
+<script src="js/modaal.min.js"></script>
+<script src="js/hatchu.js"></script>
 </head>
 <body>
 <div th:replace="header"></div>
@@ -56,7 +64,7 @@
 					<input type="text" name="torihikisaki_name" id="torihikisaki_name" th:value="${hd.torihikisaki_name}" readonly required>
 				</td>
 				<td>
-					<a href="torihikisakiSansho">参照</a>
+					<a href="torihikisakisansho" class="modal1">参照</a>
 				</td>
 				<th>発注日</th>
 				<td>
@@ -126,7 +134,7 @@
 	</form>
 	<span th:text="${hd.msg}"></span>
 </div>
-
+<div id="modal"></div>
 </body>
 </html>
 

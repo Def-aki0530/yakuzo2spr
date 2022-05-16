@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table class="table-auto mx-auto border">
+		<tr class="h-10 py-2">
+			<th class="px-3 text-center font-bold border">取引先コード</th>
+			<th class="px-3 text-center font-bold border">取引先名</th>
+		</tr>
+		<th:block th:each="map : ${hd.torihikisaki_list}">
+			<tr class="h-10 hover:bg-yellow-100">
+				<td class="border">
+					<!-- <form name="ts">
+						<input type="hidden" name="torihikisaki_code" th:value="${map.torihikisaki_code}">
+						<input type="hidden" name="torihikisaki_name" th:value="${map.torihikisaki_name}">
+						<button class="text-blue-500 hover:text-blue-900 underline" type="button" onclick="choiceSpl()" th:text="${map.torihikisaki_code}"></button>
+					</form> -->
+					<a href="#" th:onclick="|choiceSpl('__${map.torihikisaki_code}__','__${map.torihikisaki_name}__')|"
+						th:text="${map.torihikisaki_code}"></a>
+
+				</td>
+				<td class="border" th:text="${map.torihikisaki_name}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>

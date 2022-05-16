@@ -20,4 +20,10 @@ public class HatchuRestController {
 
 		return hr.getPages(hd);
 	}
+
+	@PostMapping("/t-sansho-getpage")
+	public int t_sansho_getPages(HatchuData hd,Model model){
+		//System.out.println("取引先参照：" + model.toString());
+		return hr.t_sansho_getPages(hd);
+	}
 }

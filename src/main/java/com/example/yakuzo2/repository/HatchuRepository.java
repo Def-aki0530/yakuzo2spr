@@ -299,4 +299,37 @@ public class HatchuRepository {
 
 		hd.setList(jt.queryForList(sql.toString(),param.toArray()));
 	}
+
+	public int t_sansho_getPages(HatchuData hd) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new ArrayList();
+
+		sql.append("select count(*) as cnt ");
+		sql.append("from mst_torihikisaki ");
+		//torihikisaki
+		if(!hd.getTorihikisaki().equals("")) {
+			sql.append("where (");
+			sql.append("torihikisaki_code = ? ");
+			sql.append("or torihikisaki_name like ? ");
+			sql.append(") ");
+			param.add(hd.getTorihikisaki());
+			param.add("%" + hd.getTorihikisaki() + "%");
+		}
+		//torihikisaki_kbn
+		if(!hd.getTorihikisaki_kbn().equals("")) {
+			if(param.size() == 0) {
+				sql.append("where ");
+			} else {
+				sql.append("and ");
+			}
+			sql.append("torihikisaki_kbn = ?");
+			param.add(hd.getTorihikisaki_kbn());
+		}
+
+		Map<String,Object> map = jt.queryForMap(sql.toString(),param.toArray());
+
+		double rec = Double.parseDouble(map.get("cnt").toString());
+		return (int)(Math.ceil(rec / 25));
+
+	}
 }
