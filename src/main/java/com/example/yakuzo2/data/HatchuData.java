@@ -50,6 +50,7 @@ public class HatchuData {
 	private String login_kengen_code = "";
 	private String readonly = "";
 	private String txtComplete = "";
+	private String mode = "";
 
 	private String torihikisaki_kbn;
 	private List<Map<String,Object>> torihikisaki_list;

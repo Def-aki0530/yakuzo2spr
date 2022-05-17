@@ -425,4 +425,100 @@ public class HatchuRepository {
 		jt.update(sql,param.toArray());
 
 	}
+
+	public void getHatchuData(HatchuData hd) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select ");
+		sql.append("h.hatchu_seq,");
+		sql.append("h.tenpo_code,");
+		sql.append("h.torihikisaki_code,");
+		sql.append("mt.torihikisaki_name,");
+		sql.append("h.jan_code,");
+		sql.append("h.yakuhin_kbn,");
+		sql.append("h.yj_code,");
+		sql.append("ms.hanbai_name,");
+		sql.append("h.hatchu_su,");
+		sql.append("h.suryo_kbn,");
+		sql.append("h.nyuka_su,");
+		sql.append("h.hatchu_kbn,");
+		sql.append("h.hatchu_date,");
+		sql.append("h.shori_kbn,");
+		sql.append("shogo_flg,");
+		sql.append("h.biko ");
+		sql.append("from ");
+		sql.append("hatchu h join mst_torihikisaki mt ");
+		sql.append("on h.torihikisaki_code = mt.torihikisaki_code ");
+		sql.append("join mst_shohin ms ");
+		sql.append("on h.jan_code = ms.jan_code ");
+		sql.append("where ");
+		sql.append("hatchu_seq = ?");
+
+		Map<String,Object> map = jt.queryForMap(sql.toString(),hd.getHatchu_seq());
+		hd.setHatchu_seq(map.get("hatchu_seq").toString());
+		hd.setTenpo_code(map.get("tenpo_code").toString());
+		hd.setTorihikisaki_name(map.get("torihikisaki_name").toString());
+		hd.setTorihikisaki_code(map.get("torihikisaki_code").toString());
+		hd.setJan_code(map.get("jan_code").toString());
+		hd.setYakuhin_kbn(map.get("yakuhin_kbn").toString());
+		hd.setYj_code(map.get("yj_code").toString());
+		hd.setHanbai_name(map.get("hanbai_name").toString());
+		hd.setHatchu_su(map.get("hatchu_su").toString());
+		hd.setSuryo_kbn(map.get("suryo_kbn").toString());
+		hd.setNyuka_su(map.get("nyuka_su").toString());
+		hd.setHatchu_kbn(map.get("hatchu_kbn").toString());
+		hd.setHatchu_date(map.get("hatchu_date").toString().substring(0,10));
+		hd.setShori_kbn(map.get("shori_kbn").toString());
+		hd.setShogo_flg(map.get("shogo_flg").toString());
+		hd.setBiko(map.get("biko").toString());
+	}
+
+	public void updHatchuData(HatchuData hd) {
+		//発注日を変えられたかもしれないので、年度の再取得
+		String[] arrDate = hd.getHatchu_date().split("-");
+		int nendo = Integer.parseInt(arrDate[0]);
+		int month = Integer.parseInt(arrDate[1]);
+		if(month <= 10) nendo--;
+		String strnendo = Integer.toString(nendo);
+
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new ArrayList();
+
+		sql.append("update hatchu set ");
+		sql.append("nendo = ?,");
+		sql.append("tenpo_code = ?,");
+		sql.append("torihikisaki_code = ?,");
+		sql.append("yakuhin_kbn = ?,");
+		sql.append("jan_code = ?,");
+		sql.append("yj_code = ?,");
+		sql.append("hatchu_su = ?,");
+		sql.append("suryo_kbn = ?,");
+		sql.append("nyuka_su = ?,");
+		sql.append("hatchu_kbn = ?,");
+		sql.append("hatchu_date = ?,");
+		sql.append("shori_kbn = ?,");
+		sql.append("shogo_flg = ?,");
+		sql.append("biko = ?,");
+		sql.append("updated_on = now(),");
+		sql.append("updated_by = ? ");
+		sql.append("where hatchu_seq = ?");
+
+		param.add(strnendo);
+		param.add(hd.getTenpo_code());
+		param.add(hd.getTorihikisaki_code());
+		param.add(hd.getYakuhin_kbn());
+		param.add(hd.getJan_code());
+		param.add(hd.getYj_code());
+		param.add(hd.getHatchu_su());
+		param.add(hd.getSuryo_kbn());
+		param.add(hd.getNyuka_su());
+		param.add(hd.getHatchu_kbn());
+		param.add(hd.getHatchu_date());
+		param.add(hd.getShori_kbn());
+		param.add(hd.getShogo_flg());
+		param.add(hd.getBiko());
+		param.add(hd.getLogin_shain_code());
+		param.add(hd.getHatchu_seq());
+
+		jt.update(sql.toString(),param.toArray());
+	}
 }

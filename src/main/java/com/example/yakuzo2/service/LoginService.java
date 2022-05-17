@@ -23,22 +23,21 @@ public class LoginService {
 	public boolean check(LoginData ld) {
 		//存在チェック
 		if(!lr.existsCheck(ld)) {
-			ld.setMsg("社員コード、またはパスワードが違います。");
-
+			ld.setMsg("社員コード、またはパスワードに間違いがあります。");
 			return false;
 		}
+
 		if(ld.getKengen_code().equals("002") && ld.getTenpo_code().equals("")) {
 			ld.setMsg("店舗権限者は、店舗の選択が必須です。");
 			return false;
 		}
 
-		//店舗情報
+		//店舗情報の整理
 		if(ld.getKengen_code().equals("001")) {
 			ld.setTenpo_code("");
 			ld.setTenpo_name("");
-		}
-		else {
-			tr.getTenpoName(ld);
+		} else {
+			ld.setTenpo_name(tr.getTenpoName(ld.getTenpo_code())); //ここ
 		}
 
 		return true;

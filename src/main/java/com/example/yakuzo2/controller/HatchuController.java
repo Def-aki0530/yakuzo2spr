@@ -45,6 +45,7 @@ public class HatchuController {
 		//動的項目の設定
 		hd.setTitle("発注データ新規登録");
 		hd.setAction("hatchuconfilm");
+		hd.setMode("new");
 		//画面表示
 		return "hatchuRegist";
 	}
@@ -74,25 +75,66 @@ public class HatchuController {
 
 	@PostMapping("/hatchuconfilm")
 	public String hatchuConfilm(@ModelAttribute("hd") HatchuData hd,Model model) {
-		if(!hs.check(hd)) {
-			hs.getTenpoList(hd);
-			return "hatchuRegist";
+		if(hd.getMode().equals("new")) {
+			hd.setTitle("発注データ登録確認");
+			hd.setSubtitle("--この内容で登録しますか？よろしければ登録ボタンを押下してください。--");
+			hd.setAction("inserthatchudata");
+			hd.setButton_name("登録");
+			hd.setCancel_action("hatchushinki");
+			if(!hs.check(hd)) {
+				hs.getTenpoList(hd);
+				return "hatchuRegist";
+			}
+		}else if(hd.getMode().equals("edit")) {
+			hd.setTitle("発注データ登録確認");
+			hd.setSubtitle("--この内容で登録しますか？よろしければ登録ボタンを押下してください。--");
+			hd.setAction("updhatchudata");
+			hd.setButton_name("登録");
+			hd.setCancel_action("hatchuedit");
+			if(!hs.check(hd)) {
+				hs.getTenpoList(hd);
+				return "hatchuRegist";
+			}
+		} else {
+			hd.setTitle("発注データ削除確認");
+			hd.setSubtitle("--このデータを削除しますか？よろしければ削除ボタンを押下してください。--");
+			hd.setAction("inserthatchudata");
+			hd.setButton_name("削除");
+			hd.setCancel_action("hatchu");
 		}
-
-		hd.setTitle("発注データ登録確認");
-		hd.setSubtitle("--この内容で登録しますか？よろしければ登録ボタンを押下してください。--");
-		hd.setAction("inserthatchudata");
-		hd.setButton_name("登録");
-		hd.setCancel_action("hatchushinki");
-
+		hs.getTenpoName(hd);  //ここ
 		return "hatchuConfilm";
 	}
-
 	@PostMapping("/inserthatchudata")
 	public String insertHatchuData(@ModelAttribute("hd") HatchuData hd,Model model) {
 		hd.setLogin_shain_code(session.getAttribute("login_shain_code").toString());
 		hd.setTxtComplete("--発注データの登録が完了しました。--");
 		hs.insertHatchuData(hd);
+		return "hatchuComplete";
+	}
+
+	@PostMapping("/hatchuedit")
+	public String dispHatchuEdit(@ModelAttribute("hd") HatchuData hd,Model model) {
+		hs.getTenpoList(hd);
+		//初期表示のときだけ、データ取得
+		if(hd.getMode().equals("")) {
+			hs.getHatchuData(hd);
+		}
+
+		hd.setTitle("発注データ編集登録");
+		hd.setAction("hatchuconfilm");
+		hd.setMode("edit");
+
+		return "hatchuRegist";
+	}
+
+	@PostMapping("updhatchudata")
+	public String updHatchuData(@ModelAttribute("hd") HatchuData hd,Model model) {
+		hd.setLogin_shain_code(session.getAttribute("login_shain_code").toString());
+		hs.updHatchuData(hd);
+
+		hd.setTxtComplete("--発注データの編集登録が完了しました。--");
+
 		return "hatchuComplete";
 	}
 }

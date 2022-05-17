@@ -20,10 +20,10 @@
 						<input type="hidden" name="torihikisaki_name" th:value="${map.torihikisaki_name}">
 						<button class="text-blue-500 hover:text-blue-900 underline" type="button" onclick="choiceSpl()" th:text="${map.torihikisaki_code}"></button>
 					</form> -->
-					<a href="#" th:onclick="|choiceYakuhin('__${map.jan_code}__','__${map.hanbai_name}__',
-														'__${map.yakuhin_kbn}__','__${map.jy_code}__')|"
-						th:text="${map.jan_code}"></a>
-
+					<a href="#"
+					th:onclick="|choiceYakuhin('__${map.jan_code}__','__${map.hanbai_name}__',
+									'__${map.yakuhin_kbn}__','__${map.yj_code}__')|"
+					th:text="${map.yj_code}"></a>
 				</td>
 				<td class="border" th:text="${map.hanbai_name}"></td>
 				<td class="border">

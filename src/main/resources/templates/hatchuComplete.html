@@ -10,8 +10,10 @@
 	<div class="w-1/2 mx-auto bg-blue-200 p-2 my-5">
 		<p class="text-xl font-bold mb-3" th:text="${hd.txtComplete}"></p>
 		<ul>
-			<li><a href="hatchuregist">新規登録処理を続ける</a></li>
-			<li><a href="hatchu">発注一覧に戻る</a></li>
+			<th:block th:if="${hd.mode} == 'new'">
+				<li><a class="underline text-blue-500 hover:text-blue-600" href="hatchuregist">新規登録処理を続ける</a></li>
+			</th:block>
+			<li><a class="underline text-blue-500 hover:text-blue-600" href="hatchu">発注一覧に戻る</a></li>
 		</ul>
 	</div>
 </body>

@@ -68,4 +68,15 @@ public class HatchuService {
 			hr.insertHatchuData(hd);
 		}
 
+		public void getHatchuData(HatchuData hd) {
+			hr.getHatchuData(hd);
+		}
+
+		public void getTenpoName(HatchuData hd) {
+			hd.setTenpo_name(tr.getTenpoName(hd.getTenpo_code()));
+		}
+
+		public void updHatchuData(HatchuData hd) {
+			hr.updHatchuData(hd);
+		}
 }

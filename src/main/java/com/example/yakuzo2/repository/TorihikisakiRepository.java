@@ -22,11 +22,20 @@ public class TorihikisakiRepository {
 			return jt.queryForList(sql);
 		}
 
+		/*
 		public void getTenpoName(LoginData ld) {
 			String sql ="select torihikisaki_name from mst_torihikisaki where torihikisaki_code = ?";
 			Map<String,Object> map = jt.queryForMap(sql,ld.getTenpo_code());
 
 			ld.setTenpo_name(map.get("torihikisaki_name").toString());
+		}
+		*/
+
+		public String getTenpoName(String code) {
+			String sql = "select torihikisaki_name from mst_torihikisaki where torihikisaki_code = ?";
+			Map<String,Object> map = jt.queryForMap(sql,code);
+
+			return map.get("torihikisaki_name").toString();
 		}
 
 		public List<Map<String,Object>> getSanshoData(String torihikisaki,String kbn,int page){
