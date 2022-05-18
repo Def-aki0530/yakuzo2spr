@@ -16,8 +16,7 @@ public class HatchuRestController {
 
 	@PostMapping("/hatchugetpages")
 	public int getPages(HatchuData hd,Model model) {
-		//System.out.println(model.toString());
-
+		//System.out.println(hd);
 		return hr.getPages(hd);
 	}
 

@@ -29,6 +29,20 @@ public class HatchuRepository {
 			param.add(hd.getYakuhin_kbn());
 		}
 
+		//削除フラグ
+		if(!hd.getDelete_flg().equals("")) {
+			if(param.size() == 0) {
+				sql.append("where ");
+			}
+			else {
+				sql.append("and ");
+			}
+			if(!hd.getDelete_flg().equals("")) {
+				sql.append("delete_flg = ? ");
+				param.add(hd.getDelete_flg());
+			}
+		}
+
 		//data_from
 		if(!hd.getDate_from().equals("")) {
 			if(param.size() == 0) {
@@ -148,6 +162,7 @@ public class HatchuRepository {
 		sql.append("mk1.torihikisaki_name tenpo_name,");
 		sql.append("mk2.torihikisaki_name,");
 		sql.append("h.hatchu_date,");
+		sql.append("h.delete_flg,");
 		sql.append("case h.yakuhin_kbn ");
 		sql.append("when '1' then '薬品' ");
 		sql.append("when '2' then 'OTC' ");
@@ -187,6 +202,21 @@ public class HatchuRepository {
 			sql.append("where h.yakuhin_kbn = ? ");
 			param.add(hd.getYakuhin_kbn());
 		}
+
+		//削除フラグ
+		if(!hd.getDelete_flg().equals("")) {
+			if(param.size() == 0) {
+				sql.append("where ");
+			}
+			else {
+				sql.append("and ");
+			}
+			if(!hd.getDelete_flg().equals("")) {
+				sql.append("h.delete_flg = ? ");
+				param.add(hd.getDelete_flg());
+			}
+		}
+
 
 		//data_from
 		if(!hd.getDate_from().equals("")) {
@@ -516,6 +546,22 @@ public class HatchuRepository {
 		param.add(hd.getShori_kbn());
 		param.add(hd.getShogo_flg());
 		param.add(hd.getBiko());
+		param.add(hd.getLogin_shain_code());
+		param.add(hd.getHatchu_seq());
+
+		jt.update(sql.toString(),param.toArray());
+	}
+
+	public void delHatchuData(HatchuData hd) {
+		StringBuilder sql = new StringBuilder();
+		List<Object> param = new ArrayList();
+
+		sql.append("update hatchu set ");
+		sql.append("delete_flg = '1',");
+		sql.append("updated_on = now(),");
+		sql.append("updated_by = ? ");
+		sql.append("where hatchu_seq = ?");
+
 		param.add(hd.getLogin_shain_code());
 		param.add(hd.getHatchu_seq());
 

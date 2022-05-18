@@ -21,7 +21,7 @@
 			<th>編集</th>
 			<th>削除</th>
 		</tr>
-		<th:block th:each="map : ${hd.list}">
+		<th:block th:if="${map.delete_flg} == '0' " th:each="map : ${hd.list}">
 			<tr>
 				<td th:text="${map.tenpo_name}"></td>
 				<td th:text="${map.torihikisaki_name}"></td>
@@ -41,10 +41,35 @@
 					</form>
 				</td>
 				<td>
-					<form action="hatchudel" method="post">
+					<form action="hatchuconfilm" method="post">
 						<input type="hidden" name="hatchu_seq" th:value="${map.hatchu_seq}">
+						<input type="hidden" name="mode" value="del">
 						<button type="submit">削除</button>
 					</form>
+				</td>
+			</tr>
+		</th:block>
+		<th:block th:if="${map.delete_flg} == '1' " th:each="map : ${hd.list}">
+			<tr>
+				<td th:text="${map.tenpo_name}"></td>
+				<td th:text="${map.torihikisaki_name}"></td>
+				<td th:text="${map.hatchu_date}"></td>
+				<td th:text="${map.yakuhin_kbn}"></td>
+				<td th:text="${map.hanbai_name}"></td>
+				<td th:text="${map.hoso_gryo}"></td>
+				<td th:text="${map.hatchu_su}"></td>
+				<td th:text="${map.suryo_kbn}"></td>
+				<td th:text="${map.hatchu_kbn}"></td>
+				<td th:text="${map.shogo_flg}"></td>
+				<td th:text="${map.shori_kbn}"></td>
+				<td>
+					<form action="hatchuedit" method="post">
+						<input type="hidden" name="hatchu_seq" th:value="${map.hatchu_seq}">
+						<button type="submit">編集</button>
+					</form>
+				</td>
+				<td>
+					<button type="button" onclick="alert('復元処理')">復元</button>
 				</td>
 			</tr>
 		</th:block>

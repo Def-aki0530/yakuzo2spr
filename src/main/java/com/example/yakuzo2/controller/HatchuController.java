@@ -96,36 +96,15 @@ public class HatchuController {
 				return "hatchuRegist";
 			}
 		} else {
+			hs.getHatchuData(hd);
 			hd.setTitle("発注データ削除確認");
 			hd.setSubtitle("--このデータを削除しますか？よろしければ削除ボタンを押下してください。--");
-			hd.setAction("inserthatchudata");
+			hd.setAction("delhatchudata");
 			hd.setButton_name("削除");
 			hd.setCancel_action("hatchu");
 		}
-		hs.getTenpoName(hd);  //ここ
+		hs.getTenpoName(hd);
 		return "hatchuConfilm";
-	}
-	@PostMapping("/inserthatchudata")
-	public String insertHatchuData(@ModelAttribute("hd") HatchuData hd,Model model) {
-		hd.setLogin_shain_code(session.getAttribute("login_shain_code").toString());
-		hd.setTxtComplete("--発注データの登録が完了しました。--");
-		hs.insertHatchuData(hd);
-		return "hatchuComplete";
-	}
-
-	@PostMapping("/hatchuedit")
-	public String dispHatchuEdit(@ModelAttribute("hd") HatchuData hd,Model model) {
-		hs.getTenpoList(hd);
-		//初期表示のときだけ、データ取得
-		if(hd.getMode().equals("")) {
-			hs.getHatchuData(hd);
-		}
-
-		hd.setTitle("発注データ編集登録");
-		hd.setAction("hatchuconfilm");
-		hd.setMode("edit");
-
-		return "hatchuRegist";
 	}
 
 	@PostMapping("updhatchudata")
@@ -134,6 +113,16 @@ public class HatchuController {
 		hs.updHatchuData(hd);
 
 		hd.setTxtComplete("--発注データの編集登録が完了しました。--");
+
+		return "hatchuComplete";
+	}
+
+	@PostMapping("/delhatchudata")
+	public String delHatchuData(@ModelAttribute("hd") HatchuData hd,Model model) {
+		hd.setLogin_shain_code(session.getAttribute("login_shain_code").toString());
+		hs.delHatchuData(hd);
+
+		hd.setTxtComplete("--発注データの削除が完了しました。--");
 
 		return "hatchuComplete";
 	}

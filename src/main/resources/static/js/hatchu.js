@@ -156,3 +156,8 @@ function choiceYakuhin(jan,name,kbn,yj){
 	mdl2.modaal('close');
 }
 
+function alertMsg(msg){
+	alert(msg);
+}
+
+

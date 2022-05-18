@@ -79,4 +79,8 @@ public class HatchuService {
 		public void updHatchuData(HatchuData hd) {
 			hr.updHatchuData(hd);
 		}
+
+		public void delHatchuData(HatchuData hd) {
+			hr.delHatchuData(hd);
+		}
 }
